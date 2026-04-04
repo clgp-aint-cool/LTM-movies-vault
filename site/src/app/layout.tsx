@@ -18,10 +18,27 @@ export const metadata: Metadata = {
     default: "Lam Thanh My Movies Collection",
     template: "%s | Lam Thanh My Movies Collection",
   },
-  description: "Tổng hợp phim điện ảnh của diễn viên Lâm Thanh Mỹ — từ Cám, Tôi thấy hoa vàng trên cỏ xanh, Bóng đè đến Đoạt hồn.",
+  description:
+    "Tổng hợp phim điện ảnh của diễn viên Lâm Thanh Mỹ — 'em bé ma' màn ảnh Việt. Phim: Cám, Tôi thấy hoa vàng trên cỏ xanh, Khe ước bán dâu, Bóng đè, Đoạt hồn.",
+  keywords: [
+    "Lâm Thanh Mỹ",
+    "diễn viên Lâm Thanh Mỹ",
+    "phim Lâm Thanh Mỹ",
+    "em bé ma màn ảnh Việt",
+    "phim kinh dị Việt Nam",
+    "Cám 2024",
+    "Bóng đè",
+    "Đoạt hồn",
+    "Tôi thấy hoa vàng trên cỏ xanh",
+    "Khe ước bán dâu",
+  ],
+  authors: [{ name: "Lam Thanh My Movies Collection" }],
   metadataBase: new URL("https://lamthanhmy.com"),
   alternates: {
     canonical: "/",
+    languages: {
+      "vi-VN": "https://lamthanhmy.com/",
+    },
   },
   openGraph: {
     title: "Lam Thanh My Movies Collection",
