@@ -47,12 +47,12 @@ export default function MoviesPage({ searchParams }: { searchParams?: { q?: stri
         {filtered.map((m) => (
           <li key={m.slug} className="group">
             <Link href={`/movies/${m.slug}`}>
-              <div className="aspect-[2/3] w-full overflow-hidden rounded-lg border border-black/10 dark:border-white/10 bg-black/5">
+              <div className="relative aspect-[2/3] w-full overflow-hidden rounded-lg border border-black/10 dark:border-white/10 bg-black/5">
                 <Image
                   src={m.posterUrl}
                   alt={`Poster phim ${m.title}`}
                   fill
-                  className="h-full w-full object-cover"
+                  className="object-cover"
                 />
               </div>
               <div className="mt-2">

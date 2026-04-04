@@ -30,12 +30,13 @@ export default function Home() {
           {movies.slice(0, 4).map((m) => (
             <li key={m.slug} className="group">
               <Link href={`/movies/${m.slug}`}>
-                <div className="aspect-[2/3] w-full overflow-hidden rounded-lg border border-black/10 dark:border-white/10 bg-black/5">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                <div className="relative aspect-[2/3] w-full overflow-hidden rounded-lg border border-black/10 dark:border-white/10 bg-black/5">
+                  <Image
                     src={m.posterUrl}
-                    alt={m.title}
-                    className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-[1.03]"
+                    alt={`Poster phim ${m.title}`}
+                    fill
+                    className="object-cover transition-transform duration-200 group-hover:scale-[1.03]"
+                    priority
                   />
                 </div>
                 <div className="mt-2">
