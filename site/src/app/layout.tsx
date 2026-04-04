@@ -90,6 +90,7 @@ export default function RootLayout({
             <Link href="/" className="font-semibold">Lam Thanh My Movies Collection</Link>
             <div className="flex items-center gap-4 text-sm">
               <Link className="opacity-90 hover:opacity-100" href="/movies">Movies</Link>
+              <Link className="opacity-90 hover:opacity-100" href="/gallery">Gallery</Link>
               <Link className="opacity-90 hover:opacity-100" href="/about">About</Link>
             </div>
           </nav>
