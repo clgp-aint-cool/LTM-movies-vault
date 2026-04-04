@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import { getMovieBySlug } from "@/data/movies";
 
 type Props = { params: { slug: string } };
@@ -9,10 +10,13 @@ export function generateMetadata({ params }: Props) {
   return {
     title: `${movie.title} (${movie.year})`,
     description: movie.description,
+    alternates: {
+      canonical: `/movies/${movie.slug}`,
+    },
     openGraph: {
       title: `${movie.title} (${movie.year})`,
       description: movie.description,
-      images: [movie.posterUrl],
+      images: [{ url: movie.posterUrl, width: 400, height: 600, alt: movie.title }],
     },
   };
 }
@@ -78,23 +82,39 @@ export default function MovieDetail({ params }: Props) {
     return { url, isEmbed: false };
   };
   const { url: effectiveUrl, isEmbed } = toEmbedUrl(movie.videoUrl);
-//frame for movie 
+//frame for movie
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Movie",
+    name: movie.title,
+    datePublished: String(movie.year),
+    description: movie.description,
+    image: `https://lamthanhmy.com${movie.posterUrl}`,
+    duration: movie.durationMinutes ? `PT${movie.durationMinutes}M` : undefined,
+    actor: {
+      "@type": "Person",
+      name: "Lâm Thanh Mỹ",
+    },
+  };
+
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
     <div className="p-6 sm:p-8 max-w-6xl mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-6 md:gap-8">
         <div className="w-full md:w-auto md:max-w-sm">
           <div className="rounded-lg overflow-hidden border border-black/10 dark:border-white/10 bg-black/5">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img 
-              src={movie.posterUrl} 
-              alt={movie.title} 
+            <Image
+              src={movie.posterUrl}
+              alt={`Poster phim ${movie.title}`}
+              width={400}
+              height={600}
               className="w-full h-auto object-contain"
-              style={{ 
-                maxHeight: '600px',
-                width: 'auto',
-                display: 'block',
-                margin: '0 auto'
-              }}
+              priority
+              style={{ maxHeight: "600px", width: "auto", display: "block", margin: "0 auto" }}
             />
           </div>
         </div>
@@ -127,6 +147,7 @@ export default function MovieDetail({ params }: Props) {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

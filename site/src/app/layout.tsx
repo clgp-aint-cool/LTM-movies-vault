@@ -14,13 +14,38 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Lam Thanh My Movie Collection",
-  description: "Những bộ phim Lâm Thanh Mỹ đóng.",
+  title: {
+    default: "Lam Thanh My Movies Collection",
+    template: "%s | Lam Thanh My Movies Collection",
+  },
+  description: "Tổng hợp phim điện ảnh của diễn viên Lâm Thanh Mỹ — từ Cám, Tôi thấy hoa vàng trên cỏ xanh, Bóng đè đến Đoạt hồn.",
   metadataBase: new URL("https://lamthanhmy.com"),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Lam Thanh My Movies Collection",
-    description: "Những bộ phim Lâm Thanh Mỹ góp .",
+    description: "Tổng hợp phim điện ảnh của diễn viên Lâm Thanh Mỹ.",
+    url: "https://lamthanhmy.com",
+    siteName: "Lam Thanh My Movies Collection",
+    locale: "vi_VN",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Lam Thanh My Movies Collection",
+    description: "Tổng hợp phim điện ảnh của diễn viên Lâm Thanh Mỹ.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -30,7 +55,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="vi">
       <body suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

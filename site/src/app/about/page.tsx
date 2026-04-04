@@ -1,3 +1,14 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Giới thiệu",
+  description:
+    "Tìm hiểu về trang lưu trữ phim điện ảnh của diễn viên Lâm Thanh Mỹ — sinh năm 2005, nổi tiếng với các phim kinh dị như Đoạt hồn, Bóng đè, Cám.",
+  alternates: {
+    canonical: "/about",
+  },
+};
+
 export default function AboutPage() {
   return (
     <div 

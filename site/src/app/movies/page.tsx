@@ -1,5 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { movies } from "@/data/movies";
+
+export const metadata: Metadata = {
+  title: "Tất cả phim",
+  description:
+    "Danh sách toàn bộ phim điện ảnh có sự tham gia của diễn viên Lâm Thanh Mỹ — từ Cám, Tôi thấy hoa vàng trên cỏ xanh, Khe ước bán dâu đến Bóng đè.",
+  alternates: {
+    canonical: "/movies",
+  },
+};
 
 export default function MoviesPage({ searchParams }: { searchParams?: { q?: string; y?: string } }) {
   const query = (searchParams?.q ?? "").toLowerCase();
@@ -37,8 +48,12 @@ export default function MoviesPage({ searchParams }: { searchParams?: { q?: stri
           <li key={m.slug} className="group">
             <Link href={`/movies/${m.slug}`}>
               <div className="aspect-[2/3] w-full overflow-hidden rounded-lg border border-black/10 dark:border-white/10 bg-black/5">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={m.posterUrl} alt={m.title} className="h-full w-full object-cover" />
+                <Image
+                  src={m.posterUrl}
+                  alt={`Poster phim ${m.title}`}
+                  fill
+                  className="h-full w-full object-cover"
+                />
               </div>
               <div className="mt-2">
                 <p className="font-medium leading-tight">{m.title}</p>
