@@ -30,11 +30,20 @@ export const metadata: Metadata = {
     siteName: "Lam Thanh My Movies Collection",
     locale: "vi_VN",
     type: "website",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Lam Thanh My Movies Collection",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Lam Thanh My Movies Collection",
     description: "Tổng hợp phim điện ảnh của diễn viên Lâm Thanh Mỹ.",
+    images: ["/og-image.jpg"],
   },
   robots: {
     index: true,

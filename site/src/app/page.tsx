@@ -27,7 +27,7 @@ export default function Home() {
           </Link>
         </div>
         <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-          {movies.slice(0, 4).map((m) => (
+          {movies.slice(0, 4).map((m, i) => (
             <li key={m.slug} className="group">
               <Link href={`/movies/${m.slug}`}>
                 <div className="relative aspect-[2/3] w-full overflow-hidden rounded-lg border border-black/10 dark:border-white/10 bg-black/5">
@@ -36,7 +36,7 @@ export default function Home() {
                     alt={`Poster phim ${m.title}`}
                     fill
                     className="object-cover transition-transform duration-200 group-hover:scale-[1.03]"
-                    priority
+                    priority={i === 0}
                   />
                 </div>
                 <div className="mt-2">
