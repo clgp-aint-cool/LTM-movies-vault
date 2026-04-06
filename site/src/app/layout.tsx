@@ -14,13 +14,64 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Lam Thanh My Movie Collection",
-  description: "Những bộ phim Lâm Thanh Mỹ đóng.",
+  title: {
+    default: "Lam Thanh My Movies Collection",
+    template: "%s | Lam Thanh My Movies Collection",
+  },
+  description:
+    "Tổng hợp phim điện ảnh của diễn viên Lâm Thanh Mỹ — 'em bé ma' màn ảnh Việt. Phim: Cám, Tôi thấy hoa vàng trên cỏ xanh, Khe ước bán dâu, Bóng đè, Đoạt hồn.",
+  keywords: [
+    "Lâm Thanh Mỹ",
+    "diễn viên Lâm Thanh Mỹ",
+    "phim Lâm Thanh Mỹ",
+    "em bé ma màn ảnh Việt",
+    "phim kinh dị Việt Nam",
+    "Cám 2024",
+    "Bóng đè",
+    "Đoạt hồn",
+    "Tôi thấy hoa vàng trên cỏ xanh",
+    "Khe ước bán dâu",
+  ],
+  authors: [{ name: "Lam Thanh My Movies Collection" }],
   metadataBase: new URL("https://lamthanhmy.com"),
+  alternates: {
+    canonical: "/",
+    languages: {
+      "vi-VN": "https://lamthanhmy.com/",
+    },
+  },
   openGraph: {
     title: "Lam Thanh My Movies Collection",
-    description: "Những bộ phim Lâm Thanh Mỹ góp .",
+    description: "Tổng hợp phim điện ảnh của diễn viên Lâm Thanh Mỹ.",
+    url: "https://lamthanhmy.com",
+    siteName: "Lam Thanh My Movies Collection",
+    locale: "vi_VN",
     type: "website",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Lam Thanh My Movies Collection",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Lam Thanh My Movies Collection",
+    description: "Tổng hợp phim điện ảnh của diễn viên Lâm Thanh Mỹ.",
+    images: ["/og-image.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -30,7 +81,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="vi">
       <body suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -39,6 +90,7 @@ export default function RootLayout({
             <Link href="/" className="font-semibold">Lam Thanh My Movies Collection</Link>
             <div className="flex items-center gap-4 text-sm">
               <Link className="opacity-90 hover:opacity-100" href="/movies">Movies</Link>
+              <Link className="opacity-90 hover:opacity-100" href="/gallery">Gallery</Link>
               <Link className="opacity-90 hover:opacity-100" href="/about">About</Link>
             </div>
           </nav>
