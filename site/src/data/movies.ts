@@ -58,18 +58,6 @@ export const movies: Movie[] = [
   },
 
   {
-    slug: "bong-de",
-    title: "Bóng đè",
-    year: 2022,
-    description:
-      "Bóng đè là một bộ phim điện ảnh hài hành động của Việt Nam ra mắt năm 2022 do Võ Thanh Hòa đạo diễn. Phim được CJ HK Entertainment và Thu Trang Entertainment chịu trách nhiệm sản xuất và CJ E&M giữ vai trò phân phối. Phim là phiên bản làm lại của bộ phim điện ảnh Hàn Quốc Nghề siêu khó ra mắt năm 2019",
-    posterUrl: "/poster/bong-de.jpg",
-    videoUrl:
-      "https://drive.google.com/file/d/1tlAqBuXrwACugfIZjt8ZoBRCH3zo31TS/view?usp=sharing/videos/bong-de.mp4",
-    durationMinutes: 101,
-  },
-
-  {
     slug: "cuc-vang-cua-ngoai",
     title: "Cục vàng của ngoại",
     year: 2025,
@@ -78,6 +66,17 @@ export const movies: Movie[] = [
     posterUrl: "/poster/cuc-vang-cua-ngoai.jpg",
     videoUrl:
       "https://drive.google.com/file/d/1LD7cF6gIoa6fsifH7nwMhwrA7xPFecnK/view?usp=sharing",
+    durationMinutes: 101,
+  },
+  {
+    slug: "bong-de",
+    title: "Bóng đè",
+    year: 2022,
+    description:
+      "Bóng đè là một bộ phim điện ảnh hài hành động của Việt Nam ra mắt năm 2022 do Võ Thanh Hòa đạo diễn. Phim được CJ HK Entertainment và Thu Trang Entertainment chịu trách nhiệm sản xuất và CJ E&M giữ vai trò phân phối. Phim là phiên bản làm lại của bộ phim điện ảnh Hàn Quốc Nghề siêu khó ra mắt năm 2019",
+    posterUrl: "/poster/bong-de.jpg",
+    videoUrl:
+      "https://drive.google.com/file/d/1tlAqBuXrwACugfIZjt8ZoBRCH3zo31TS/view?usp=sharing/videos/bong-de.mp4",
     durationMinutes: 101,
   },
 
@@ -134,8 +133,18 @@ export const movies: Movie[] = [
     videoUrl: "",
     durationMinutes: 100,
   },
+  {
+    slug: "tay-anh-giu-mot-vi-sao",
+    title: "Tay Anh Giữ Một Vì Sao",
+    year: 2025,
+    description:
+      "Siêu sao Kang Jun Woo – “Hoàng tử Châu Á” – rơi vào tình cảnh “mắc kẹt” tại Việt Nam sau một loạt sự cố dở khóc dở cười, nơi anh gặp Thảo – một cô gái bán cà phê đầy đam mê, quyết tâm theo đuổi ước mơ của mình.",
+    posterUrl: "/poster/tay-anh-giu-mot-vi-sao.jpg",
+    videoUrl:
+      "https://drive.google.com/file/d/1pZYpagpdU9xBlkdZeXQhPcEizirFKhnS/view?usp=share_link",
+    durationMinutes: 100,
+  },
 ];
-
 export function getMovieBySlug(slug: string): Movie | undefined {
   return movies.find((m) => m.slug === slug);
 }
