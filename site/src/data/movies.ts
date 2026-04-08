@@ -47,7 +47,7 @@ export const movies: Movie[] = [
 
   {
     slug: "khe-uoc-ban-dau",
-    title: "Khe ước bán dâu",
+    title: "Khế Ước Bán Dâu",
     year: 2025,
     description:
       "Khế ước bán dâu: Lời nguyền đêm trăng hay gọi ngắn là Khế ước bán dâu là một bộ phim điện ảnh Việt Nam ra mắt năm 2025 thuộc thể loại kinh dị – cổ trang do Lê Văn Kiệt đạo diễn, đánh dấu sự trở lại của anh sau 3 năm kể từ Bóng đè và The Princess.",
@@ -56,7 +56,17 @@ export const movies: Movie[] = [
       "https://drive.google.com/file/d/1vLd_HlZrZ06EENY_tdcgZQF6c8n8FXj0/view?usp=sharing",
     durationMinutes: 114,
   },
-
+  {
+    slug: "dai-tiec-trang-mau-8",
+    title: "Đại Tiệc Trăng Máu 8",
+    year: 2025,
+    description:
+      "Đại Tiệc Trăng Máu 8 theo chân một vị đạo diễn hay bị coi thường (Vân Sơn đóng) trong dự án thử thách nhất đời ông: thực hiện một bộ phim dài 35 phút chỉ với một cú máy. Hàng loạt tình huống dở khóc dở cười xảy ra khi các diễn viên liên tục gây chuyện “khó đỡ”. Thế nhưng, việc hoàn thành tác phẩm là cơ hội cuối cùng để ông giành lại sự tôn trọng từ cô con gái đam mê nghệ thuật. Quy tụ dàn sao đình đám nhất điện ảnh Việt, Đại Tiệc Trăng Máu 8 ấn định lịch khai tiệc vào 24.04.2026, chiếu xuyên Đại lễ Giỗ Tổ Hùng Vương & 30.04.2026.",
+    posterUrl: "/poster/Dai-tiec-trang-mau-8.jpg",
+    videoUrl:
+      "https://drive.google.com/file/d/1vLd_HlZrZ06EENY_tdcgZQF6c8n8FXj0/view?usp=sharing",
+    durationMinutes: 114,
+  },
   {
     slug: "cuc-vang-cua-ngoai",
     title: "Cục vàng của ngoại",
