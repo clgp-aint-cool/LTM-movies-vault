@@ -59,7 +59,7 @@ export const movies: Movie[] = [
   {
     slug: "dai-tiec-trang-mau-8",
     title: "Đại Tiệc Trăng Máu 8",
-    year: 2025,
+    year: 2026,
     description:
       "Đại Tiệc Trăng Máu 8 theo chân một vị đạo diễn hay bị coi thường (Vân Sơn đóng) trong dự án thử thách nhất đời ông: thực hiện một bộ phim dài 35 phút chỉ với một cú máy. Hàng loạt tình huống dở khóc dở cười xảy ra khi các diễn viên liên tục gây chuyện “khó đỡ”. Thế nhưng, việc hoàn thành tác phẩm là cơ hội cuối cùng để ông giành lại sự tôn trọng từ cô con gái đam mê nghệ thuật. Quy tụ dàn sao đình đám nhất điện ảnh Việt, Đại Tiệc Trăng Máu 8 ấn định lịch khai tiệc vào 24.04.2026, chiếu xuyên Đại lễ Giỗ Tổ Hùng Vương & 30.04.2026.",
     posterUrl: "/poster/Dai-tiec-trang-mau-8.jpg",
