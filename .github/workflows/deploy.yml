@@ -65,14 +65,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Copy docker-compose.yml to VM
+      - name: Copy deployment files to VM
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.VM_HOST }}
           username: ${{ secrets.VM_USER }}
           password: ${{ secrets.VM_PASSWORD }}
           port: ${{ secrets.VM_PORT || 22 }}
-          source: "docker-compose.yml"
+          source: "docker-compose.yml,Caddyfile"
           target: "~/ltm-movies-vault"
 
       - name: Execute Remote Deployment via SSH

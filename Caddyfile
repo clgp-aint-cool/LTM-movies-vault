@@ -1,0 +1,3 @@
+lamthanhmy.com, www.lamthanhmy.com {
+    reverse_proxy app:3000
+}
