@@ -7,9 +7,13 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "postbuild": "next-sitemap"
+    "postbuild": "next-sitemap",
+    "gallery:migrate-legacy": "node scripts/migrate-gallery-legacy.mjs",
+    "test": "node --test tests/**/*.test.mjs"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.864.0",
+    "server-only": "^0.0.1",
     "next": "15.5.9",
     "react": "19.1.0",
     "react-dom": "19.1.0"

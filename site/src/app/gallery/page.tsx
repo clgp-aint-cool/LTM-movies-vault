@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import GalleryGrid from "./GalleryGrid";
+import { readGalleryImages } from "@/lib/gallery/read";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Thư viện ảnh",
@@ -23,7 +26,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function GalleryPage() {
+export default async function GalleryPage() {
+  const images = await readGalleryImages();
   return (
     <div className="p-6 sm:p-8">
       <h1 className="text-2xl font-semibold mb-2">Thư viện ảnh</h1>
@@ -39,7 +43,7 @@ export default function GalleryPage() {
         Cục vàng của ngoại — cùng ảnh chân dung và ảnh sự kiện ra mắt phim.
       </p>
 
-      <GalleryGrid />
+      <GalleryGrid images={images} />
     </div>
   );
 }

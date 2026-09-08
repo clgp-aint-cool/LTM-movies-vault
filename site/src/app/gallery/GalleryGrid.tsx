@@ -1,22 +1,23 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
-import { galleryImages, CATEGORIES } from "@/data/gallery";
+import { CATEGORIES } from "@/data/gallery";
+import type { GalleryImage } from "@/lib/gallery/types";
 
-export default function GalleryGrid() {
+export default function GalleryGrid({ images }: { images: GalleryImage[] }) {
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [lightbox, setLightbox] = useState<{
-    images: typeof galleryImages;
+    images: GalleryImage[];
     index: number;
   } | null>(null);
 
   const filtered =
     activeCategory === "all"
-      ? galleryImages
-      : galleryImages.filter((img) => img.category === activeCategory);
+      ? images
+      : images.filter((img) => img.category === activeCategory);
 
   const openLightbox = useCallback(
-    (images: typeof galleryImages, index: number) => {
+    (images: GalleryImage[], index: number) => {
       setLightbox({ images, index });
       document.body.style.overflow = "hidden";
     },
@@ -96,7 +97,7 @@ export default function GalleryGrid() {
         >
           {filtered.map((img, i) => (
             <button
-              key={img.src}
+              key={img.id || img.src}
               onClick={() => openLightbox(filtered, i)}
               className="group break-inside-avoid block w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-black/30 dark:focus-visible:ring-white/30 rounded-lg overflow-hidden"
               aria-label={`Xem ảnh: ${img.alt}`}
