@@ -1,15 +1,74 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useTransition } from "react";
 import { CATEGORIES } from "@/data/gallery";
 import type { GalleryImage } from "@/lib/gallery/types";
 
-export default function GalleryGrid({ images }: { images: GalleryImage[] }) {
+type ApiResponse = {
+  images: GalleryImage[];
+  hasMore: boolean;
+  nextMarker: string | null;
+};
+
+async function fetchPage(marker?: string): Promise<ApiResponse> {
+  const url = marker
+    ? `/api/gallery/images?marker=${encodeURIComponent(marker)}`
+    : "/api/gallery/images";
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Gallery API error: ${res.status}`);
+  return res.json();
+}
+
+export default function GalleryGrid({ images: initialImages }: { images: GalleryImage[] }) {
+  const [images, setImages] = useState<GalleryImage[]>(initialImages);
   const [activeCategory, setActiveCategory] = useState<string>("all");
+  const [hasMore, setHasMore] = useState(true);
+  const [nextMarker, setNextMarker] = useState<string | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [s3Loaded, setS3Loaded] = useState(false);
+  const [isPending, startTransition] = useTransition();
+
   const [lightbox, setLightbox] = useState<{
     images: GalleryImage[];
     index: number;
   } | null>(null);
+
+  // On mount, load first page from S3 API (replaces bundled images)
+  useEffect(() => {
+    fetchPage()
+      .then((data) => {
+        if (data.images.length > 0) {
+          setImages(data.images);
+          setS3Loaded(true);
+        }
+        setHasMore(data.hasMore);
+        setNextMarker(data.nextMarker);
+      })
+      .catch((err) => {
+        console.warn("S3 gallery fetch failed, using bundled images:", err.message);
+        setHasMore(false);
+      });
+  }, []);
+
+  const loadMore = useCallback(() => {
+    if (!nextMarker || isPending) return;
+    setLoadError(null);
+    startTransition(async () => {
+      try {
+        const data = await fetchPage(nextMarker);
+        setImages((prev) => {
+          // Deduplicate by id/src
+          const existing = new Set(prev.map((i) => i.id ?? i.src));
+          const fresh = data.images.filter((i) => !existing.has(i.id ?? i.src));
+          return [...prev, ...fresh];
+        });
+        setHasMore(data.hasMore);
+        setNextMarker(data.nextMarker);
+      } catch (err) {
+        setLoadError(err instanceof Error ? err.message : "Lỗi tải ảnh");
+      }
+    });
+  }, [nextMarker, isPending]);
 
   const filtered =
     activeCategory === "all"
@@ -81,11 +140,11 @@ export default function GalleryGrid({ images }: { images: GalleryImage[] }) {
           </button>
         ))}
         <span className="ml-auto text-xs opacity-50 self-center">
-          {filtered.length} ảnh
+          {filtered.length} ảnh{s3Loaded ? " (S3)" : ""}
         </span>
       </div>
 
-      {/* Masonry-style grid — auto-fill columns */}
+      {/* Masonry-style grid */}
       {filtered.length === 0 ? (
         <p className="opacity-60 text-sm py-12 text-center">
           Chưa có ảnh trong danh mục này.
@@ -124,6 +183,24 @@ export default function GalleryGrid({ images }: { images: GalleryImage[] }) {
               )}
             </button>
           ))}
+        </div>
+      )}
+
+      {/* Load more */}
+      {hasMore && (
+        <div className="mt-10 flex flex-col items-center gap-2">
+          {loadError && (
+            <p className="text-red-500 text-sm">{loadError}</p>
+          )}
+          <button
+            onClick={loadMore}
+            disabled={isPending}
+            className="px-6 py-2.5 rounded-full border border-black/20 dark:border-white/20 text-sm font-medium
+              hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black
+              transition-colors disabled:opacity-50 disabled:cursor-wait"
+          >
+            {isPending ? "Đang tải…" : "Tải thêm ảnh"}
+          </button>
         </div>
       )}
 

@@ -1,5 +1,5 @@
 import "server-only";
-import { GetObjectCommand, HeadObjectCommand, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { GetObjectCommand, HeadObjectCommand, ListObjectsV2Command, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 
 const bucket = process.env.S3_BUCKET;
 const client = new S3Client({
@@ -29,4 +29,15 @@ export function publicObjectUrl(key: string) {
   const base = process.env.S3_PUBLIC_BASE_URL;
   if (!base) throw new Error("S3_PUBLIC_BASE_URL is not configured");
   return `${base.replace(/\/$/, "")}/${key.split("/").map(encodeURIComponent).join("/")}`;
+}
+
+export async function listObjects(prefix: string, continuationToken?: string, maxKeys = 100) {
+  return client.send(
+    new ListObjectsV2Command({
+      Bucket: requireBucket(),
+      Prefix: prefix,
+      MaxKeys: maxKeys,
+      ContinuationToken: continuationToken,
+    })
+  );
 }
