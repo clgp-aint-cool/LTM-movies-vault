@@ -5,9 +5,9 @@ import { readGalleryImages } from "@/lib/gallery/read";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Thư viện ảnh",
+  title: "Hình ảnh, poster phim",
   description:
-    "Thư viện ảnh phim điện ảnh của diễn viên Lâm Thanh Mỹ — poster phim Cám, Bóng đè, Đoạt hồn, Khe ước bán dâu và ảnh sự kiện. Tổng hợp hình ảnh từ các dự án điện ảnh và sự kiện ra mắt.",
+    "Thư viện ảnh phim điện ảnh của diễn viên Lâm Thanh Mỹ — poster phim Cám, Bóng đè, Đoạt hồn, Khế ước bán dâu và ảnh sự kiện. Tổng hợp hình ảnh từ các dự án điện ảnh và sự kiện ra mắt.",
   keywords: [
     "thư viện ảnh Lâm Thanh Mỹ",
     "hình ảnh phim Lâm Thanh Mỹ",
@@ -35,10 +35,9 @@ export default async function GalleryPage() {
         Poster phim, ảnh chân dung và hình ảnh sự kiện của diễn viên Lâm Thanh Mỹ.
       </p>
 
-      {/* SEO paragraph — visible to search engines, hidden from screen */}
-      <p className="sr-only">
+      <p className="opacity-70 text-sm leading-relaxed mb-8 max-w-3xl">
         Thư viện ảnh tổng hợp toàn bộ poster phim điện ảnh của diễn viên Lâm Thanh Mỹ,
-        bao gồm Cám, Bóng đè, Tôi thấy hoa vàng trên cỏ xanh, Khe ước bán dâu,
+        bao gồm Cám, Bóng đè, Tôi thấy hoa vàng trên cỏ xanh, Khế ước bán dâu,
         Đoạt hồn, Nghề siêu dễ, Vợ ba, Thất Sơn tâm linh, Tình đầu thơ ngây,
         Cục vàng của ngoại — cùng ảnh chân dung và ảnh sự kiện ra mắt phim.
       </p>

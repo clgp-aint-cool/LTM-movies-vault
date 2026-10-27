@@ -6,6 +6,12 @@ export type Movie = {
   posterUrl: string; // Can be remote or in public/
   videoUrl: string; // mp4/hls URL; can be remote for now
   durationMinutes?: number;
+  director?: string;
+  genres?: string[];
+  // Vai diễn của Lâm Thanh Mỹ trong phim, ví dụ "Tấm lúc nhỏ"
+  role?: string;
+  // Nhận xét riêng của bạn về phim / vai diễn — nội dung độc nhất giúp trang được lập chỉ mục
+  review?: string;
 };
 
 export type Actress = {
@@ -31,6 +37,8 @@ export const movies: Movie[] = [
     videoUrl:
       "https://drive.google.com/file/d/1PUYa7fz_EDMNNgbRevTEpu7kMHPQj2zO/view?usp=sharing",
     durationMinutes: 140,
+    director: "Trần Hữu Tấn",
+    genres: ["Kinh dị", "Cổ trang"],
   },
 
   {
@@ -43,6 +51,8 @@ export const movies: Movie[] = [
     videoUrl:
       "https://drive.google.com/file/d/1r4UzRUCHSLvbWa1jf0g3FTVRAx_PVmVc/view?usp=sharing",
     durationMinutes: 140,
+    director: "Victor Vũ",
+    genres: ["Tâm lý", "Gia đình"],
   },
 
   {
@@ -55,6 +65,8 @@ export const movies: Movie[] = [
     videoUrl:
       "https://drive.google.com/file/d/1vLd_HlZrZ06EENY_tdcgZQF6c8n8FXj0/view?usp=sharing",
     durationMinutes: 114,
+    director: "Lê Văn Kiệt",
+    genres: ["Kinh dị", "Cổ trang"],
   },
   {
     slug: "dai-tiec-trang-mau-8",
@@ -66,6 +78,7 @@ export const movies: Movie[] = [
     videoUrl:
       "https://drive.google.com/file/d/10fiPcarXLu1sB3qRqv0oaX2gSKpNg65d/view?usp=sharing",
     durationMinutes: 114,
+    genres: ["Hài"],
   },
   {
     slug: "cuc-vang-cua-ngoai",
@@ -77,17 +90,20 @@ export const movies: Movie[] = [
     videoUrl:
       "https://drive.google.com/file/d/1LD7cF6gIoa6fsifH7nwMhwrA7xPFecnK/view?usp=sharing",
     durationMinutes: 101,
+    genres: ["Gia đình", "Tâm lý"],
   },
   {
     slug: "bong-de",
     title: "Bóng đè",
     year: 2022,
     description:
-      "Bóng đè là một bộ phim điện ảnh hài hành động của Việt Nam ra mắt năm 2022 do Võ Thanh Hòa đạo diễn. Phim được CJ HK Entertainment và Thu Trang Entertainment chịu trách nhiệm sản xuất và CJ E&M giữ vai trò phân phối. Phim là phiên bản làm lại của bộ phim điện ảnh Hàn Quốc Nghề siêu khó ra mắt năm 2019",
+      "Bóng đè là bộ phim điện ảnh kinh dị Việt Nam ra mắt năm 2022 do Lê Văn Kiệt đạo diễn. Phim khai thác hiện tượng bóng đè trong dân gian, đưa khán giả vào những đêm ác mộng của một gia đình bị ám ảnh bởi thế lực vô hình.",
     posterUrl: "/poster/bong-de.jpg",
     videoUrl:
       "https://drive.google.com/file/d/1tlAqBuXrwACugfIZjt8ZoBRCH3zo31TS/view?usp=sharing/videos/bong-de.mp4",
     durationMinutes: 101,
+    director: "Lê Văn Kiệt",
+    genres: ["Kinh dị"],
   },
 
   {
@@ -100,6 +116,8 @@ export const movies: Movie[] = [
     videoUrl:
       "https://drive.google.com/file/d/1Gi_wx_jsK2wtHyC4dsJ-o0PVphh08pqH/view?usp=sharing",
     durationMinutes: 99,
+    director: "Hàm Trần",
+    genres: ["Kinh dị"],
   },
 
   {
@@ -112,6 +130,8 @@ export const movies: Movie[] = [
     videoUrl:
       "https://drive.google.com/file/d/18AM_7MpI7B7vK3JSPKZPoDj3z1quh9V4/view?usp=sharing",
     durationMinutes: 113,
+    director: "Võ Thanh Hòa",
+    genres: ["Hài", "Hành động"],
   },
   {
     slug: "vo-ba",
@@ -122,6 +142,8 @@ export const movies: Movie[] = [
     posterUrl: "/poster/vo-ba.jpg",
     videoUrl: "",
     durationMinutes: 96,
+    director: "Ash Mayfair",
+    genres: ["Cổ trang", "Tâm lý"],
   },
   {
     slug: "that-son-tam-linh",
@@ -132,6 +154,8 @@ export const movies: Movie[] = [
     posterUrl: "/poster/that-son-tam-linh.jpg",
     videoUrl: "",
     durationMinutes: 100,
+    director: "Hàm Trần",
+    genres: ["Kinh dị"],
   },
   {
     slug: "tinh-dau-ngay-tho",
@@ -142,6 +166,7 @@ export const movies: Movie[] = [
     posterUrl: "/poster/tinh-dau-ngay-tho.jpg",
     videoUrl: "",
     durationMinutes: 100,
+    genres: ["Tình cảm", "Học đường"],
   },
   {
     slug: "tay-anh-giu-mot-vi-sao",
@@ -153,8 +178,17 @@ export const movies: Movie[] = [
     videoUrl:
       "https://drive.google.com/file/d/1pZYpagpdU9xBlkdZeXQhPcEizirFKhnS/view?usp=share_link",
     durationMinutes: 100,
+    genres: ["Tình cảm", "Hài"],
   },
 ];
+export function getRelatedMovies(movie: Movie, limit = 4): Movie[] {
+  const shared = (m: Movie) => (m.genres ?? []).filter((g) => movie.genres?.includes(g)).length;
+  return movies
+    .filter((m) => m.slug !== movie.slug)
+    .sort((a, b) => shared(b) - shared(a) || b.year - a.year)
+    .slice(0, limit);
+}
+
 export function getMovieBySlug(slug: string): Movie | undefined {
   return movies.find((m) => m.slug === slug);
 }

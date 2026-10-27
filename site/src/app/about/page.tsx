@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Giới thiệu Lâm Thanh Mỹ | Tiểu sử diễn viên",
+  title: { absolute: "Lâm Thanh Mỹ là ai? Tiểu sử diễn viên 'em bé ma' màn ảnh Việt" },
   description:
-    "Tìm hiểu tiểu sử diễn viên Lâm Thanh Mỹ — sinh năm 2005, 'em bé ma' của màn ảnh Việt. Phim kinh dị: Đoạt hồn, Bóng đè, Cám. Phim khác: Tôi thấy hoa vàng trên cỏ xanh, Khe ước bán dâu.",
+    "Tìm hiểu tiểu sử diễn viên Lâm Thanh Mỹ — sinh năm 2005, 'em bé ma' của màn ảnh Việt. Phim kinh dị: Đoạt hồn, Bóng đè, Cám. Phim khác: Tôi thấy hoa vàng trên cỏ xanh, Khế ước bán dâu.",
   alternates: {
     canonical: "/about",
   },
@@ -72,16 +73,17 @@ export default function AboutPage() {
             <section>
               <h3 className="text-lg font-semibold text-white/80 mb-2">Phim nổi bật</h3>
               <ul className="list-disc list-inside space-y-1 text-white/80">
-                <li><strong>Cám</strong> (2024) — Kinh dị cổ trang, đạo diễn Trần Hữu Tấn</li>
-                <li><strong>Khe ước bán dâu</strong> (2025) — Kinh dị cổ trang, đạo diễn Lê Văn Kiệt</li>
+                <li><Link href="/movies/cam" className="underline"><strong>Cám</strong></Link> (2024) — Kinh dị cổ trang, đạo diễn Trần Hữu Tấn</li>
+                <li><Link href="/movies/khe-uoc-ban-dau" className="underline"><strong>Khế ước bán dâu</strong></Link> (2025) — Kinh dị cổ trang, đạo diễn Lê Văn Kiệt</li>
                 <li>
-                  <strong>Tôi thấy hoa vàng trên cỏ xanh</strong> (2015) — Đạo diễn Victor Vũ
+                  <Link href="/movies/toi-thay-hoa-vang-tren-co-xanh" className="underline"><strong>Tôi thấy hoa vàng trên cỏ xanh</strong></Link> (2015) — Đạo diễn Victor Vũ
                 </li>
-                <li><strong>Bóng đè</strong> (2022) — Hài hành động, đạo diễn Võ Thanh Hòa</li>
-                <li><strong>Đoạt hồn</strong> (2014) — Kinh dị, đạo diễn Trần Hàm</li>
-                <li><strong>Nghề siêu dễ</strong> (2022) — Hài hành động</li>
-                <li><strong>Vợ ba</strong> (2019) — Cổ trang tâm lý</li>
-                <li><strong>Thất Sơn tâm linh</strong> (2019) — Kinh dị</li>
+                <li><Link href="/movies/bong-de" className="underline"><strong>Bóng đè</strong></Link> (2022) — Kinh dị, đạo diễn Lê Văn Kiệt</li>
+                <li><Link href="/movies/doat-hon" className="underline"><strong>Đoạt hồn</strong></Link> (2014) — Kinh dị, đạo diễn Hàm Trần</li>
+                <li><Link href="/movies/nghe-sieu-de" className="underline"><strong>Nghề siêu dễ</strong></Link> (2022) — Hài hành động</li>
+                <li><Link href="/movies/vo-ba" className="underline"><strong>Vợ ba</strong></Link> (2019) — Cổ trang tâm lý</li>
+                <li><Link href="/movies/that-son-tam-linh" className="underline"><strong>Thất Sơn tâm linh</strong></Link> (2019) — Kinh dị</li>
+                <li><Link href="/movies" className="underline">Xem tất cả phim của Lâm Thanh Mỹ →</Link></li>
               </ul>
             </section>
 

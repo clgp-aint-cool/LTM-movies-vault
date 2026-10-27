@@ -1,3 +1,7 @@
-lamthanhmy.com, www.lamthanhmy.com {
+lamthanhmy.com {
     reverse_proxy app:3000
+}
+
+www.lamthanhmy.com {
+    redir https://lamthanhmy.com{uri} permanent
 }

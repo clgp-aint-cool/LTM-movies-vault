@@ -11,6 +11,20 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "storage.googleapis.com" },
     ],
   },
+  async redirects() {
+    return [
+      // Old next-sitemap URLs that Search Console may still have on file
+      { source: "/sitemap-index.xml", destination: "/sitemap.xml", permanent: true },
+      { source: "/sitemap-0.xml", destination: "/sitemap.xml", permanent: true },
+      // Fallback in case a request for www reaches the app directly
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.lamthanhmy.com" }],
+        destination: "https://lamthanhmy.com/:path*",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
