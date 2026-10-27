@@ -108,6 +108,7 @@ export default function RootLayout({
             <div className="flex items-center gap-4 text-sm">
               <Link className="opacity-90 hover:opacity-100" href="/movies">Phim</Link>
               <Link className="opacity-90 hover:opacity-100" href="/gallery">Hình ảnh</Link>
+              <Link className="opacity-90 hover:opacity-100" href="/bai-viet">Bài viết</Link>
               <Link className="opacity-90 hover:opacity-100" href="/about">Tiểu sử</Link>
             </div>
           </nav>

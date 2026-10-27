@@ -72,10 +72,10 @@ export async function siteCard({ kicker, title, subtitle }: { kicker: string; ti
     <OgFrame>
       <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
         <span style={{ fontSize: 26, color: "#f87171", fontWeight: 800, letterSpacing: 2 }}>{kicker}</span>
-        <span style={{ fontSize: title.length > 14 ? 60 : 72, fontWeight: 800, lineHeight: 1.1, marginTop: 16 }}>
+        <span style={{ fontSize: title.length > 30 ? 48 : title.length > 14 ? 60 : 72, fontWeight: 800, lineHeight: 1.1, marginTop: 16 }}>
           {title}
         </span>
-        <span style={{ fontSize: 32, color: "#d6d3d1", marginTop: 24, lineHeight: 1.35 }}>{subtitle}</span>
+        <span style={{ fontSize: 32, color: "#d6d3d1", marginTop: 24, lineHeight: 1.35 }}>{subtitle.length > 110 ? `${subtitle.slice(0, 107).trimEnd()}…` : subtitle}</span>
       </div>
       <div style={{ display: "flex", position: "relative", width: 420, height: 486 }}>
         {posters.map((src, i) => (

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { actress, movies } from "@/data/movies";
+import { formatDate, getPosts } from "@/lib/posts";
 
 export const metadata: Metadata = {
   title: { absolute: "Lâm Thanh Mỹ – Tổng hợp phim điện ảnh, vai diễn & hình ảnh" },
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
+  const posts = getPosts().slice(0, 3);
   return (
     <div className="min-h-screen p-6 sm:p-10">
       <header className="max-w-6xl mx-auto flex items-center gap-4 sm:gap-6">
@@ -67,6 +69,28 @@ export default function Home() {
             </li>
           ))}
         </ul>
+
+        {posts.length > 0 && (
+          <section className="mt-12">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-medium">Bài viết mới về Lâm Thanh Mỹ</h2>
+              <Link href="/bai-viet" className="text-sm underline opacity-80 hover:opacity-100 transition-opacity">
+                Xem tất cả →
+              </Link>
+            </div>
+            <ul className="grid gap-4 sm:grid-cols-3">
+              {posts.map((p) => (
+                <li key={p.slug} className="rounded-xl border border-black/10 dark:border-white/10 p-4 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+                  <Link href={`/bai-viet/${p.slug}`} className="block">
+                    <p className="font-medium leading-snug">{p.title}</p>
+                    <p className="text-xs opacity-60 mt-1">{formatDate(p.date)}</p>
+                    <p className="text-sm opacity-80 mt-2 line-clamp-3">{p.description}</p>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         {/* Secondary CTA */}
         <div className="mt-10 p-6 rounded-xl border border-black/10 dark:border-white/10 bg-black/5">

@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { movies } from "@/data/movies";
 import { absoluteUrl } from "@/lib/site";
+import { getPosts } from "@/lib/posts";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -9,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: absoluteUrl("/movies"), lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: absoluteUrl("/about"), lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: absoluteUrl("/gallery"), lastModified: now, changeFrequency: "weekly", priority: 0.6 },
+    { url: absoluteUrl("/bai-viet"), lastModified: now, changeFrequency: "weekly", priority: 0.8 },
   ];
 
   const moviePages: MetadataRoute.Sitemap = movies.map((m) => ({
@@ -19,5 +21,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     images: [absoluteUrl(m.posterUrl)],
   }));
 
-  return [...pages, ...moviePages];
+  const postPages: MetadataRoute.Sitemap = getPosts().map((p) => ({
+    url: absoluteUrl(`/bai-viet/${p.slug}`),
+    lastModified: new Date(p.updated ?? p.date),
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
+  return [...pages, ...moviePages, ...postPages];
 }

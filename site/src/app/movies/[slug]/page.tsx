@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getMovieBySlug, getRelatedMovies, movies, type Movie } from "@/data/movies";
 import { SITE_URL, absoluteUrl } from "@/lib/site";
+import { getPostsForMovie } from "@/lib/posts";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -50,6 +51,7 @@ export default async function MovieDetail({ params }: Props) {
   const movie = getMovieBySlug(slug);
   if (!movie) return notFound();
   const related = getRelatedMovies(movie);
+  const posts = getPostsForMovie(movie.slug);
 
   const genreText = movie.genres?.map((g) => g.toLowerCase()).join(", ");
 
@@ -180,6 +182,21 @@ export default async function MovieDetail({ params }: Props) {
           )}
         </div>
       </div>
+
+      {posts.length > 0 && (
+        <section className="mt-12">
+          <h2 className="text-xl font-semibold mb-4">Bài viết về phim {movie.title}</h2>
+          <ul className="space-y-2">
+            {posts.map((p) => (
+              <li key={p.slug}>
+                <Link href={`/bai-viet/${p.slug}`} className="underline opacity-90 hover:opacity-100">
+                  {p.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <section className="mt-12">
         <h2 className="text-xl font-semibold mb-4">Phim khác của Lâm Thanh Mỹ</h2>
