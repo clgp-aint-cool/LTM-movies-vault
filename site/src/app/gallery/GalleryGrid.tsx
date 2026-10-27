@@ -1,79 +1,27 @@
 "use client";
 
-import { useState, useCallback, useEffect, useTransition } from "react";
+import { useState, useCallback, useEffect } from "react";
+import Image from "next/image";
 import { CATEGORIES } from "@/data/gallery";
 import type { GalleryImage } from "@/lib/gallery/types";
 
-type ApiResponse = {
-  images: GalleryImage[];
-  hasMore: boolean;
-  nextMarker: string | null;
-};
+const PAGE_SIZE = 24;
 
-async function fetchPage(marker?: string): Promise<ApiResponse> {
-  const url = marker
-    ? `/api/gallery/images?marker=${encodeURIComponent(marker)}`
-    : "/api/gallery/images";
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`Gallery API error: ${res.status}`);
-  return res.json();
-}
-
-export default function GalleryGrid({ images: initialImages }: { images: GalleryImage[] }) {
-  const [images, setImages] = useState<GalleryImage[]>(initialImages);
+export default function GalleryGrid({ images }: { images: GalleryImage[] }) {
   const [activeCategory, setActiveCategory] = useState<string>("all");
-  const [hasMore, setHasMore] = useState(true);
-  const [nextMarker, setNextMarker] = useState<string | null>(null);
-  const [loadError, setLoadError] = useState<string | null>(null);
-  const [s3Loaded, setS3Loaded] = useState(false);
-  const [isPending, startTransition] = useTransition();
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   const [lightbox, setLightbox] = useState<{
     images: GalleryImage[];
     index: number;
   } | null>(null);
 
-  // On mount, load first page from S3 API (replaces bundled images)
-  useEffect(() => {
-    fetchPage()
-      .then((data) => {
-        if (data.images.length > 0) {
-          setImages(data.images);
-          setS3Loaded(true);
-        }
-        setHasMore(data.hasMore);
-        setNextMarker(data.nextMarker);
-      })
-      .catch((err) => {
-        console.warn("S3 gallery fetch failed, using bundled images:", err.message);
-        setHasMore(false);
-      });
-  }, []);
-
-  const loadMore = useCallback(() => {
-    if (!nextMarker || isPending) return;
-    setLoadError(null);
-    startTransition(async () => {
-      try {
-        const data = await fetchPage(nextMarker);
-        setImages((prev) => {
-          // Deduplicate by id/src
-          const existing = new Set(prev.map((i) => i.id ?? i.src));
-          const fresh = data.images.filter((i) => !existing.has(i.id ?? i.src));
-          return [...prev, ...fresh];
-        });
-        setHasMore(data.hasMore);
-        setNextMarker(data.nextMarker);
-      } catch (err) {
-        setLoadError(err instanceof Error ? err.message : "Lỗi tải ảnh");
-      }
-    });
-  }, [nextMarker, isPending]);
-
   const filtered =
     activeCategory === "all"
       ? images
       : images.filter((img) => img.category === activeCategory);
+  const visible = filtered.slice(0, visibleCount);
+  const hasMore = visibleCount < filtered.length;
 
   const openLightbox = useCallback(
     (images: GalleryImage[], index: number) => {
@@ -129,7 +77,10 @@ export default function GalleryGrid({ images: initialImages }: { images: Gallery
         {CATEGORIES.map((cat) => (
           <button
             key={cat.key}
-            onClick={() => setActiveCategory(cat.key)}
+            onClick={() => {
+              setActiveCategory(cat.key);
+              setVisibleCount(PAGE_SIZE);
+            }}
             className={`px-4 py-1.5 rounded-full text-sm border transition-colors ${
               activeCategory === cat.key
                 ? "bg-black text-white dark:bg-white dark:text-black border-black dark:border-white"
@@ -140,7 +91,7 @@ export default function GalleryGrid({ images: initialImages }: { images: Gallery
           </button>
         ))}
         <span className="ml-auto text-xs opacity-50 self-center">
-          {filtered.length} ảnh{s3Loaded ? " (S3)" : ""}
+          {filtered.length} ảnh
         </span>
       </div>
 
@@ -154,7 +105,7 @@ export default function GalleryGrid({ images: initialImages }: { images: Gallery
           className="columns-2 sm:columns-3 md:columns-4 lg:columns-5 gap-3 space-y-3"
           role="list"
         >
-          {filtered.map((img, i) => (
+          {visible.map((img, i) => (
             <button
               key={img.id || img.src}
               onClick={() => openLightbox(filtered, i)}
@@ -163,12 +114,14 @@ export default function GalleryGrid({ images: initialImages }: { images: Gallery
               role="listitem"
             >
               <div className="relative overflow-hidden rounded-lg border border-black/10 dark:border-white/10 bg-black/5">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={img.src}
                   alt={img.alt}
-                  className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
-                  loading="lazy"
+                  width={0}
+                  height={0}
+                  sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, (min-width: 640px) 33vw, 50vw"
+                  style={{ width: "100%", height: "auto" }}
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
                 {/* Hover overlay */}
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-end p-2">
@@ -189,17 +142,13 @@ export default function GalleryGrid({ images: initialImages }: { images: Gallery
       {/* Load more */}
       {hasMore && (
         <div className="mt-10 flex flex-col items-center gap-2">
-          {loadError && (
-            <p className="text-red-500 text-sm">{loadError}</p>
-          )}
           <button
-            onClick={loadMore}
-            disabled={isPending}
+            onClick={() => setVisibleCount((n) => n + PAGE_SIZE)}
             className="px-6 py-2.5 rounded-full border border-black/20 dark:border-white/20 text-sm font-medium
               hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black
-              transition-colors disabled:opacity-50 disabled:cursor-wait"
+              transition-colors"
           >
-            {isPending ? "Đang tải…" : "Tải thêm ảnh"}
+            Tải thêm ảnh ({filtered.length - visibleCount} còn lại)
           </button>
         </div>
       )}
@@ -236,12 +185,17 @@ export default function GalleryGrid({ images: initialImages }: { images: Gallery
             </div>
 
             {/* Image */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={lightbox.images[lightbox.index].src}
-              alt={lightbox.images[lightbox.index].alt}
-              className="max-h-[70vh] max-w-full w-auto object-contain rounded-lg"
-            />
+            <div className="relative w-full h-[70vh]">
+              <Image
+                key={lightbox.images[lightbox.index].src}
+                src={lightbox.images[lightbox.index].src}
+                alt={lightbox.images[lightbox.index].alt}
+                fill
+                sizes="(min-width: 1024px) 1024px, 100vw"
+                className="object-contain"
+                priority
+              />
+            </div>
 
             {/* Caption */}
             <div className="mt-3 text-center">

@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     remotePatterns: [
       { protocol: "https", hostname: "via.placeholder.com" },
+      { protocol: "https", hostname: "s3.hcm-5.cloud.cmctelecom.vn", pathname: "/mysql-backup-test/**" },
       { protocol: "https", hostname: "storage.googleapis.com" },
     ],
   },

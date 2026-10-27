@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import GalleryGrid from "./GalleryGrid";
 import { readGalleryImages } from "@/lib/gallery/read";
+import { listS3GalleryImages } from "@/lib/gallery/s3-public";
 
-export const dynamic = "force-dynamic";
+// Re-render at most every 5 minutes instead of on every request
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Hình ảnh, poster phim",
@@ -27,7 +29,11 @@ export const metadata: Metadata = {
 };
 
 export default async function GalleryPage() {
-  const images = await readGalleryImages();
+  const s3Images = await listS3GalleryImages().catch((err) => {
+    console.warn("[gallery] S3 listing failed, using fallback:", err instanceof Error ? err.message : err);
+    return [];
+  });
+  const images = s3Images.length > 0 ? s3Images : await readGalleryImages();
   return (
     <div className="p-6 sm:p-8">
       <h1 className="text-2xl font-semibold mb-2">Thư viện ảnh</h1>
