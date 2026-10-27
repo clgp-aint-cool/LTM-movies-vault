@@ -54,6 +54,7 @@ export const movies: Movie[] = [
     releaseDate: "2027-03-05",
     releaseTentative: true,
     ticketUrl: "https://www.cgv.vn/default/cong-tru-nhan-chia.html",
+    trailerYoutubeId: "LHKY7u6stAU",
   },
   {
     slug: "cam",
