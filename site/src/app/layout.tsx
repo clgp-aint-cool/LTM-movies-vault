@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { actress } from "@/data/movies";
-import { SITE_NAME, SITE_URL, absoluteUrl } from "@/lib/site";
+import { SITE_BRAND, SITE_NAME, SITE_URL, absoluteUrl } from "@/lib/site";
 import SiteNav, { SiteFooterNote } from "@/components/SiteNav";
 
 const geistSans = Geist({
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     "Tôi thấy hoa vàng trên cỏ xanh",
     "Khế ước bán dâu",
   ],
-  authors: [{ name: SITE_NAME }],
+  authors: [{ name: SITE_BRAND }],
   metadataBase: new URL(SITE_URL),
   openGraph: {
     title: "Lâm Thanh Mỹ – Tổng hợp phim điện ảnh, vai diễn & hình ảnh",
@@ -70,6 +70,7 @@ const jsonLd = {
       "@id": `${SITE_URL}/#website`,
       url: SITE_URL,
       name: SITE_NAME,
+      alternateName: [SITE_BRAND, "lamthanhmy.com"],
       inLanguage: "vi-VN",
       about: { "@id": `${SITE_URL}/#person` },
     },
@@ -106,7 +107,7 @@ export default function RootLayout({
           <SiteNav />
           {children}
           <footer className="p-6 sm:p-8 text-sm opacity-70 border-t border-black/10 dark:border-white/10 mt-10">
-            © <span suppressHydrationWarning>{new Date().getFullYear()}</span> {SITE_NAME} · <SiteFooterNote />
+            © <span suppressHydrationWarning>{new Date().getFullYear()}</span> {SITE_BRAND} · <SiteFooterNote />
           </footer>
         </div>
       </body>

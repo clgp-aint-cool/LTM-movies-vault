@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getMovieBySlug, type Movie } from "@/data/movies";
 import { formatDate, getPostBySlug, getPosts } from "@/lib/posts";
-import { SITE_NAME, SITE_URL, absoluteUrl } from "@/lib/site";
+import { SITE_BRAND, SITE_URL, absoluteUrl } from "@/lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -58,8 +58,8 @@ export default async function PostPage({ params }: Props) {
         inLanguage: "vi",
         image: `${url}/opengraph-image`,
         keywords: post.keywords.join(", ") || undefined,
-        author: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
-        publisher: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
+        author: { "@type": "Organization", name: SITE_BRAND, url: SITE_URL },
+        publisher: { "@type": "Organization", name: SITE_BRAND, url: SITE_URL },
         about: { "@type": "Person", "@id": `${SITE_URL}/#person`, name: "Lâm Thanh Mỹ" },
         mentions: movies.map((m) => ({ "@type": "Movie", name: m.title, url: absoluteUrl(`/movies/${m.slug}`) })),
       },
