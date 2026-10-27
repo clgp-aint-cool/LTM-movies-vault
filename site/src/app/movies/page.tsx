@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { movies } from "@/data/movies";
+import { languageAlternates } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   title: { absolute: "Danh sách phim Lâm Thanh Mỹ đã đóng – Đầy đủ, mới nhất" },
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
     "Danh sách toàn bộ phim điện ảnh có sự tham gia của diễn viên Lâm Thanh Mỹ — từ Cám, Tôi thấy hoa vàng trên cỏ xanh, Khế ước bán dâu đến Bóng đè.",
   alternates: {
     canonical: "/movies",
+    languages: languageAlternates("/movies"),
   },
 };
 

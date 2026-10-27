@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { actress } from "@/data/movies";
 import { SITE_NAME, SITE_URL, absoluteUrl } from "@/lib/site";
+import SiteNav, { SiteFooterNote } from "@/components/SiteNav";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -103,18 +103,10 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <div className="max-w-7xl mx-auto">
-          <nav className="flex items-center justify-between p-6 sm:p-8 border-b border-black/10 dark:border-white/10">
-            <Link href="/" className="font-semibold">Lâm Thanh Mỹ</Link>
-            <div className="flex items-center gap-4 text-sm">
-              <Link className="opacity-90 hover:opacity-100" href="/movies">Phim</Link>
-              <Link className="opacity-90 hover:opacity-100" href="/gallery">Hình ảnh</Link>
-              <Link className="opacity-90 hover:opacity-100" href="/bai-viet">Bài viết</Link>
-              <Link className="opacity-90 hover:opacity-100" href="/about">Tiểu sử</Link>
-            </div>
-          </nav>
+          <SiteNav />
           {children}
           <footer className="p-6 sm:p-8 text-sm opacity-70 border-t border-black/10 dark:border-white/10 mt-10">
-            © <span suppressHydrationWarning>{new Date().getFullYear()}</span> {SITE_NAME} · Trang lưu trữ của người hâm mộ, không chính thức
+            © <span suppressHydrationWarning>{new Date().getFullYear()}</span> {SITE_NAME} · <SiteFooterNote />
           </footer>
         </div>
       </body>

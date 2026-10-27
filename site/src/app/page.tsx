@@ -3,16 +3,22 @@ import Link from "next/link";
 import Image from "next/image";
 import { actress, movies } from "@/data/movies";
 import { formatDate, getPosts } from "@/lib/posts";
+import { languageAlternates } from "@/lib/i18n";
+import PressList from "@/components/PressList";
+import UpcomingMovies from "@/components/UpcomingMovies";
 
 export const metadata: Metadata = {
   title: { absolute: "Lâm Thanh Mỹ – Tổng hợp phim điện ảnh, vai diễn & hình ảnh" },
   description:
     "Tổng hợp phim điện ảnh của diễn viên Lâm Thanh Mỹ — 'em bé ma' của màn ảnh Việt. Xem phim Cám, Tôi thấy hoa vàng trên cỏ xanh, Khế ước bán dâu, Bóng đè, Đoạt hồn.",
-  alternates: { canonical: "/" },
+  alternates: { canonical: "/", languages: languageAlternates("/") },
 };
 
 export default function Home() {
   const posts = getPosts().slice(0, 3);
+  const withRelease = movies
+    .filter((m) => m.releaseDate)
+    .map((m) => ({ slug: m.slug, title: m.title, posterUrl: m.posterUrl, releaseDate: m.releaseDate! }));
   return (
     <div className="min-h-screen p-6 sm:p-10">
       <header className="max-w-6xl mx-auto flex items-center gap-4 sm:gap-6">
@@ -31,6 +37,8 @@ export default function Home() {
       </header>
 
       <main className="max-w-6xl mx-auto mt-8">
+        <UpcomingMovies items={withRelease} />
+
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-medium">Phim Lâm Thanh Mỹ đã đóng</h2>
           <Link
@@ -91,6 +99,27 @@ export default function Home() {
             </ul>
           </section>
         )}
+
+        <section className="mt-12">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-medium">Báo chí nói gì về Lâm Thanh Mỹ</h2>
+            <Link href="/bao-chi" className="text-sm underline opacity-80 hover:opacity-100 transition-opacity">
+              Xem tất cả →
+            </Link>
+          </div>
+          <PressList limit={4} />
+        </section>
+
+        <div className="mt-12 grid gap-4 sm:grid-cols-2">
+          <Link href="/hanh-trinh" className="rounded-xl border border-black/10 dark:border-white/10 p-6 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+            <p className="text-lg font-medium">📅 Hành trình sự nghiệp</p>
+            <p className="text-sm opacity-80 mt-1">Các mốc từ phim đầu tay tới hiện tại, theo từng năm.</p>
+          </Link>
+          <Link href="/quiz" className="rounded-xl border border-black/10 dark:border-white/10 p-6 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+            <p className="text-lg font-medium">🎯 Bạn hiểu Lâm Thanh Mỹ bao nhiêu?</p>
+            <p className="text-sm opacity-80 mt-1">Làm quiz 10 câu rồi chia sẻ điểm với bạn bè.</p>
+          </Link>
+        </div>
 
         {/* Secondary CTA */}
         <div className="mt-10 p-6 rounded-xl border border-black/10 dark:border-white/10 bg-black/5">

@@ -13,6 +13,15 @@ export type Movie = {
   role?: string;
   // Nhận xét riêng của bạn về phim / vai diễn — nội dung độc nhất giúp trang được lập chỉ mục
   review?: string;
+  // Ngày khởi chiếu tại Việt Nam (YYYY-MM-DD). Ngày trong tương lai → hiện đồng hồ đếm ngược
+  releaseDate?: string;
+  // Link xem phim HỢP PHÁP (Netflix, FPT Play, Galaxy Play, VieON…). Chỉ thêm link đã tự kiểm tra
+  watch?: WatchLink[];
+};
+
+export type WatchLink = {
+  platform: string; // ví dụ "Netflix", "FPT Play"
+  url: string;
 };
 
 export type Actress = {
@@ -39,6 +48,9 @@ export const movies: Movie[] = [
     durationMinutes: 140,
     director: "Trần Hữu Tấn",
     genres: ["Kinh dị", "Cổ trang"],
+    role: "Cám",
+    releaseDate: "2024-09-20",
+    watch: [{ platform: "VieON", url: "https://vieon.vn/cam.html" }],
   },
 
   {
@@ -52,6 +64,12 @@ export const movies: Movie[] = [
     durationMinutes: 140,
     director: "Victor Vũ",
     genres: ["Tâm lý", "Gia đình"],
+    role: "Mận",
+    releaseDate: "2015-10-02",
+    watch: [
+      { platform: "Galaxy Play", url: "https://galaxyplay.vn/title/yellow-flowers-on-the-green-grass" },
+      { platform: "FPT Play", url: "https://fptplay.vn/xem-video/toi-thay-hoa-vang-tren-co-xanh-669f7dd869be1c99a6269a09" },
+    ],
   },
 
   {
@@ -65,6 +83,8 @@ export const movies: Movie[] = [
     durationMinutes: 114,
     director: "Lê Văn Kiệt",
     genres: ["Kinh dị", "Cổ trang"],
+    role: "Nhài",
+    releaseDate: "2025-09-12",
   },
   {
     slug: "dai-tiec-trang-mau-8",
@@ -76,6 +96,8 @@ export const movies: Movie[] = [
     trailerYoutubeId: "vBtTAtY0X2g",
     durationMinutes: 114,
     genres: ["Hài"],
+    director: "Phan Gia Nhật Linh",
+    releaseDate: "2026-04-24",
   },
   {
     slug: "cuc-vang-cua-ngoai",
@@ -179,6 +201,11 @@ export function getRelatedMovies(movie: Movie, limit = 4): Movie[] {
     .filter((m) => m.slug !== movie.slug)
     .sort((a, b) => shared(b) - shared(a) || b.year - a.year)
     .slice(0, limit);
+}
+
+/** Ngày dùng để sắp xếp / hiển thị: releaseDate nếu có, không thì năm */
+export function movieDate(movie: Movie): string {
+  return movie.releaseDate ?? `${movie.year}`;
 }
 
 export function getMovieBySlug(slug: string): Movie | undefined {

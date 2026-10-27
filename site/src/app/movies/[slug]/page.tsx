@@ -4,7 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { getMovieBySlug, getRelatedMovies, movies, type Movie } from "@/data/movies";
 import { SITE_URL, absoluteUrl } from "@/lib/site";
-import { getPostsForMovie } from "@/lib/posts";
+import { formatDate, getPostsForMovie } from "@/lib/posts";
+import { getPressForMovie } from "@/data/press";
+import { languageAlternates } from "@/lib/i18n";
+import Countdown from "@/components/Countdown";
+import { releaseTimestamp } from "@/lib/release";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -13,6 +17,8 @@ export function generateStaticParams() {
 }
 
 export const dynamicParams = false;
+// Re-render daily so "sắp ra mắt" flips to "đã khởi chiếu" without a deploy
+export const revalidate = 86400;
 
 function pageTitle(movie: Movie) {
   return `${movie.title} (${movie.year}) – Phim Lâm Thanh Mỹ`;
@@ -36,6 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     keywords: [movie.title, `phim ${movie.title}`, `Lâm Thanh Mỹ ${movie.title}`, "phim Lâm Thanh Mỹ"],
     alternates: {
       canonical: `/movies/${movie.slug}`,
+      languages: languageAlternates(`/movies/${movie.slug}`),
     },
     openGraph: {
       title,
@@ -52,6 +59,8 @@ export default async function MovieDetail({ params }: Props) {
   if (!movie) return notFound();
   const related = getRelatedMovies(movie);
   const posts = getPostsForMovie(movie.slug);
+  const pressItems = getPressForMovie(movie.slug);
+  const isUpcoming = movie.releaseDate ? releaseTimestamp(movie.releaseDate) > Date.now() : false;
 
   const genreText = movie.genres?.map((g) => g.toLowerCase()).join(", ");
 
@@ -63,7 +72,7 @@ export default async function MovieDetail({ params }: Props) {
         "@id": `${absoluteUrl(`/movies/${movie.slug}`)}#movie`,
         name: movie.title,
         url: absoluteUrl(`/movies/${movie.slug}`),
-        datePublished: String(movie.year),
+        datePublished: movie.releaseDate ?? String(movie.year),
         description: movie.description,
         image: absoluteUrl(movie.posterUrl),
         inLanguage: "vi",
@@ -128,6 +137,12 @@ export default async function MovieDetail({ params }: Props) {
           <dl className="mt-4 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-sm">
             <dt className="opacity-60">Năm phát hành</dt>
             <dd>{movie.year}</dd>
+            {movie.releaseDate && (
+              <>
+                <dt className="opacity-60">Khởi chiếu</dt>
+                <dd>{formatDate(movie.releaseDate)}</dd>
+              </>
+            )}
             {movie.genres && movie.genres.length > 0 && (
               <>
                 <dt className="opacity-60">Thể loại</dt>
@@ -164,6 +179,47 @@ export default async function MovieDetail({ params }: Props) {
           </p>
           {movie.review && <p className="opacity-90 leading-relaxed mt-3">{movie.review}</p>}
 
+          <section className="mt-6">
+            <h2 className="text-xl font-semibold mb-2">Xem phim {movie.title} ở đâu?</h2>
+            {isUpcoming && movie.releaseDate ? (
+              <>
+                <p className="opacity-90 mb-3">
+                  Phim {movie.title} sẽ khởi chiếu tại rạp từ ngày {formatDate(movie.releaseDate)}. Còn:
+                </p>
+                <Countdown date={movie.releaseDate} />
+              </>
+            ) : movie.watch && movie.watch.length > 0 ? (
+              <>
+                <p className="opacity-90 mb-3">
+                  Bạn có thể xem phim {movie.title} ({movie.year}) bản quyền trên:
+                </p>
+                <ul className="flex flex-wrap gap-2">
+                  {movie.watch.map((w) => (
+                    <li key={w.url}>
+                      <a
+                        href={w.url}
+                        target="_blank"
+                        rel="noopener noreferrer nofollow"
+                        className="inline-block rounded-full border border-black/15 dark:border-white/20 px-4 py-2 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10"
+                      >
+                        {w.platform} ↗
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <p className="text-xs opacity-60 mt-2">
+                  Nền tảng có thể thay đổi kho phim theo thời gian. Hãy ủng hộ phim Việt bằng cách xem ở nơi có bản quyền.
+                </p>
+              </>
+            ) : (
+              <p className="opacity-90">
+                Hiện chưa có thông tin chắc chắn về nền tảng phát hành bản quyền của phim {movie.title}. Bạn có thể tìm
+                phim trong ứng dụng Netflix, FPT Play, Galaxy Play, VieON hoặc TV360, và nên tránh các trang phim lậu.
+                {movie.trailerYoutubeId ? " Trong lúc chờ, bạn có thể xem trailer chính thức bên dưới." : ""}
+              </p>
+            )}
+          </section>
+
           {movie.trailerYoutubeId && (
             <div className="mt-6">
               <h2 className="text-xl font-semibold mb-3">Trailer phim {movie.title}</h2>
@@ -192,6 +248,22 @@ export default async function MovieDetail({ params }: Props) {
                 <Link href={`/bai-viet/${p.slug}`} className="underline opacity-90 hover:opacity-100">
                   {p.title}
                 </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {pressItems.length > 0 && (
+        <section className="mt-12">
+          <h2 className="text-xl font-semibold mb-4">Báo chí viết về Lâm Thanh Mỹ trong phim {movie.title}</h2>
+          <ul className="space-y-2">
+            {pressItems.map((p) => (
+              <li key={p.url}>
+                <a href={p.url} target="_blank" rel="noopener noreferrer" className="underline opacity-90 hover:opacity-100">
+                  {p.title}
+                </a>
+                <span className="text-sm opacity-60"> · {p.outlet}, {formatDate(p.date)}</span>
               </li>
             ))}
           </ul>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { languageAlternates } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   title: { absolute: "Lâm Thanh Mỹ là ai? Tiểu sử diễn viên 'em bé ma' màn ảnh Việt" },
@@ -7,6 +8,7 @@ export const metadata: Metadata = {
     "Tìm hiểu tiểu sử diễn viên Lâm Thanh Mỹ — sinh năm 2005, 'em bé ma' của màn ảnh Việt. Phim kinh dị: Đoạt hồn, Bóng đè, Cám. Phim khác: Tôi thấy hoa vàng trên cỏ xanh, Khế ước bán dâu.",
   alternates: {
     canonical: "/about",
+    languages: languageAlternates("/about"),
   },
   openGraph: {
     title: "Giới thiệu Lâm Thanh Mỹ",
@@ -84,6 +86,15 @@ export default function AboutPage() {
                 <li><Link href="/movies/vo-ba" className="underline"><strong>Vợ ba</strong></Link> (2019) — Cổ trang tâm lý</li>
                 <li><Link href="/movies/that-son-tam-linh" className="underline"><strong>Thất Sơn tâm linh</strong></Link> (2019) — Kinh dị</li>
                 <li><Link href="/movies" className="underline">Xem tất cả phim của Lâm Thanh Mỹ →</Link></li>
+              </ul>
+            </section>
+
+            <section>
+              <h3 className="text-lg font-semibold text-white/80 mb-2">Tìm hiểu thêm</h3>
+              <ul className="list-disc list-inside space-y-1 text-white/80">
+                <li><Link href="/hanh-trinh" className="underline">Hành trình sự nghiệp theo từng năm</Link></li>
+                <li><Link href="/bao-chi" className="underline">Báo chí nói gì về Lâm Thanh Mỹ</Link></li>
+                <li><Link href="/quiz" className="underline">Quiz: Bạn hiểu Lâm Thanh Mỹ bao nhiêu?</Link></li>
               </ul>
             </section>
 
