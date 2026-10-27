@@ -43,20 +43,11 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     locale: "vi_VN",
     type: "website",
-    images: [
-      {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Diễn viên Lâm Thanh Mỹ",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Lâm Thanh Mỹ – Tổng hợp phim điện ảnh",
     description: "Tổng hợp phim điện ảnh của diễn viên Lâm Thanh Mỹ.",
-    images: ["/og-image.jpg"],
   },
   robots: {
     index: true,

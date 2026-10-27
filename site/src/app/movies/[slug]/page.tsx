@@ -41,7 +41,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
       type: "video.movie",
       url: `/movies/${movie.slug}`,
-      images: [{ url: movie.posterUrl, width: 400, height: 600, alt: `Poster phim ${movie.title}` }],
     },
   };
 }
