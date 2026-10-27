@@ -54,7 +54,7 @@ export default async function MovieEn({ params }: Props) {
     name: movie.title,
     alternateName: movie.titleEn,
     url: absoluteUrl(`/en/movies/${movie.slug}`),
-    datePublished: movie.releaseDate ?? String(movie.year),
+    datePublished: (!movie.releaseTentative && movie.releaseDate) || String(movie.year),
     description: movie.descriptionEn,
     image: absoluteUrl(movie.posterUrl),
     inLanguage: "vi",
@@ -91,7 +91,7 @@ export default async function MovieEn({ params }: Props) {
           <dl className="mt-4 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-sm">
             {movie.titleEn && (<><dt className="opacity-60">Vietnamese title</dt><dd>{movie.title}</dd></>)}
             <dt className="opacity-60">Year</dt><dd>{movie.year}</dd>
-            {movie.releaseDate && (<><dt className="opacity-60">Released (Vietnam)</dt><dd>{formatDateEn(movie.releaseDate)}</dd></>)}
+            {movie.releaseDate && (<><dt className="opacity-60">Released (Vietnam)</dt><dd>{formatDateEn(movie.releaseDate)}{movie.releaseTentative ? " (expected)" : ""}</dd></>)}
             {movie.genresEn?.length ? (<><dt className="opacity-60">Genre</dt><dd>{movie.genresEn.join(", ")}</dd></>) : null}
             {movie.director && (<><dt className="opacity-60">Director</dt><dd>{movie.director}</dd></>)}
             {movie.durationMinutes && (<><dt className="opacity-60">Runtime</dt><dd>{movie.durationMinutes} min</dd></>)}
@@ -105,7 +105,7 @@ export default async function MovieEn({ params }: Props) {
           <h2 className="text-xl font-semibold mt-6 mb-2">Where to watch {movie.titleEn ?? movie.title}</h2>
           {isUpcoming && movie.releaseDate ? (
             <>
-              <p className="opacity-90 mb-3">In Vietnamese cinemas from {formatDateEn(movie.releaseDate)}.</p>
+              <p className="opacity-90 mb-3">{movie.releaseTentative ? "Expected in Vietnamese cinemas from" : "In Vietnamese cinemas from"} {formatDateEn(movie.releaseDate)}.</p>
               <Countdown date={movie.releaseDate} lang="en" />
             </>
           ) : movie.watch?.length ? (

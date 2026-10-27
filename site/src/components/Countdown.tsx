@@ -9,7 +9,16 @@ const VI: Labels = { days: "ngày", hours: "giờ", minutes: "phút", seconds: "
 const EN: Labels = { days: "days", hours: "hours", minutes: "min", seconds: "sec", released: "Now showing!" };
 
 /** Counts down to 00:00 Vietnam time on `date` (YYYY-MM-DD) */
-export default function Countdown({ date, lang = "vi" }: { date: string; lang?: "vi" | "en" }) {
+export default function Countdown({
+  date,
+  lang = "vi",
+  size = "md",
+}: {
+  date: string;
+  lang?: "vi" | "en";
+  size?: "md" | "lg";
+}) {
+  const lg = size === "lg";
   const labels = lang === "en" ? EN : VI;
   const target = releaseTimestamp(date);
   // Rendered only after mount so the server HTML never disagrees with the client clock
@@ -21,10 +30,10 @@ export default function Countdown({ date, lang = "vi" }: { date: string; lang?: 
     return () => clearInterval(id);
   }, []);
 
-  if (now === null) return <div className="h-16" aria-hidden />;
+  if (now === null) return <div className={lg ? "h-28 sm:h-36" : "h-16"} aria-hidden />;
 
   const diff = target - now;
-  if (diff <= 0) return <p className="font-medium text-red-500">{labels.released}</p>;
+  if (diff <= 0) return <p className={`font-medium text-red-500 ${lg ? "text-3xl" : ""}`}>{labels.released}</p>;
 
   const parts = [
     [Math.floor(diff / 86_400_000), labels.days],
@@ -34,11 +43,20 @@ export default function Countdown({ date, lang = "vi" }: { date: string; lang?: 
   ] as const;
 
   return (
-    <div className="flex gap-2" role="timer" aria-live="off">
+    <div className={`flex ${lg ? "gap-2 sm:gap-4" : "gap-2"}`} role="timer" aria-live="off">
       {parts.map(([value, label]) => (
-        <div key={label} className="min-w-16 rounded-lg bg-black/80 text-white px-3 py-2 text-center">
-          <div className="text-2xl font-semibold tabular-nums">{String(value).padStart(2, "0")}</div>
-          <div className="text-xs opacity-70">{label}</div>
+        <div
+          key={label}
+          className={
+            lg
+              ? "flex-1 sm:flex-none sm:min-w-28 rounded-xl bg-black/80 text-white px-2 sm:px-4 py-3 sm:py-5 text-center ring-1 ring-red-500/40"
+              : "min-w-16 rounded-lg bg-black/80 text-white px-3 py-2 text-center"
+          }
+        >
+          <div className={`${lg ? "text-4xl sm:text-6xl" : "text-2xl"} font-semibold tabular-nums`}>
+            {String(value).padStart(2, "0")}
+          </div>
+          <div className={`${lg ? "text-sm sm:text-base mt-1" : "text-xs"} opacity-70`}>{label}</div>
         </div>
       ))}
     </div>

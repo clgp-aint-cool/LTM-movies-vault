@@ -22,7 +22,7 @@ export default function HomeEn() {
   const sorted = [...moviesEn].sort((a, b) => b.year - a.year);
   const withRelease = moviesEn
     .filter((m) => m.releaseDate)
-    .map((m) => ({ slug: m.slug, title: displayTitleEn(m), posterUrl: m.posterUrl, releaseDate: m.releaseDate! }));
+    .map((m) => ({ slug: m.slug, title: displayTitleEn(m), posterUrl: m.posterUrl, releaseDate: m.releaseDate!, tentative: m.releaseTentative }));
 
   return (
     <div className="min-h-screen p-6 sm:p-10">

@@ -6,7 +6,7 @@ import Link from "next/link";
 import Countdown from "./Countdown";
 import { releaseTimestamp } from "@/lib/release";
 
-export type UpcomingItem = { slug: string; title: string; posterUrl: string; releaseDate: string };
+export type UpcomingItem = { slug: string; title: string; posterUrl: string; releaseDate: string; tentative?: boolean };
 
 /**
  * Movies whose releaseDate is still in the future (checked on the client, so a
@@ -44,9 +44,14 @@ export default function UpcomingMovies({ items, lang = "vi" }: { items: Upcoming
                   {m.title}
                 </Link>
                 <p className="text-sm opacity-70 mb-2">
-                  {en ? "In Vietnamese cinemas" : "Khởi chiếu"} {d}/{mo}/{y}
+                  {en ? (m.tentative ? "Expected in cinemas" : "In Vietnamese cinemas") : m.tentative ? "Khởi chiếu dự kiến" : "Khởi chiếu"} {d}/{mo}/{y}
                 </p>
                 <Countdown date={m.releaseDate} lang={lang} />
+                {!en && (
+                  <Link href="/sap-ra-mat" className="inline-block mt-2 text-sm underline opacity-80 hover:opacity-100">
+                    Xem trang đếm ngược →
+                  </Link>
+                )}
               </div>
             </li>
           );

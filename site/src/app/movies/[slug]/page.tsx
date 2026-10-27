@@ -72,7 +72,7 @@ export default async function MovieDetail({ params }: Props) {
         "@id": `${absoluteUrl(`/movies/${movie.slug}`)}#movie`,
         name: movie.title,
         url: absoluteUrl(`/movies/${movie.slug}`),
-        datePublished: movie.releaseDate ?? String(movie.year),
+        datePublished: (!movie.releaseTentative && movie.releaseDate) || String(movie.year),
         description: movie.description,
         image: absoluteUrl(movie.posterUrl),
         inLanguage: "vi",
@@ -140,7 +140,7 @@ export default async function MovieDetail({ params }: Props) {
             {movie.releaseDate && (
               <>
                 <dt className="opacity-60">Khởi chiếu</dt>
-                <dd>{formatDate(movie.releaseDate)}</dd>
+                <dd>{formatDate(movie.releaseDate)}{movie.releaseTentative ? " (dự kiến)" : ""}</dd>
               </>
             )}
             {movie.genres && movie.genres.length > 0 && (
@@ -184,9 +184,19 @@ export default async function MovieDetail({ params }: Props) {
             {isUpcoming && movie.releaseDate ? (
               <>
                 <p className="opacity-90 mb-3">
-                  Phim {movie.title} sẽ khởi chiếu tại rạp từ ngày {formatDate(movie.releaseDate)}. Còn:
+                  Phim {movie.title} {movie.releaseTentative ? "dự kiến khởi chiếu" : "sẽ khởi chiếu"} tại rạp từ ngày{" "}
+                  {formatDate(movie.releaseDate)}. Còn:
                 </p>
                 <Countdown date={movie.releaseDate} />
+                <p className="text-sm mt-3">
+                  <Link href="/sap-ra-mat" className="underline opacity-80 hover:opacity-100">Trang đếm ngược phim sắp ra mắt →</Link>
+                  {movie.ticketUrl && (
+                    <>
+                      {" · "}
+                      <a href={movie.ticketUrl} target="_blank" rel="noopener noreferrer" className="underline opacity-80 hover:opacity-100">Thông tin lịch chiếu ↗</a>
+                    </>
+                  )}
+                </p>
               </>
             ) : movie.watch && movie.watch.length > 0 ? (
               <>

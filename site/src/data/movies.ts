@@ -15,6 +15,10 @@ export type Movie = {
   review?: string;
   // Ngày khởi chiếu tại Việt Nam (YYYY-MM-DD). Ngày trong tương lai → hiện đồng hồ đếm ngược
   releaseDate?: string;
+  // true khi ngày khởi chiếu mới là dự kiến (chưa có thông báo chính thức) → hiện chữ "dự kiến"
+  releaseTentative?: boolean;
+  // Trang thông tin / đặt vé của rạp (CGV, Galaxy…) cho phim sắp chiếu
+  ticketUrl?: string;
   // Link xem phim HỢP PHÁP (Netflix, FPT Play, Galaxy Play, VieON…). Chỉ thêm link đã tự kiểm tra
   watch?: WatchLink[];
 };
@@ -37,6 +41,20 @@ export const actress: Actress = {
 };
 
 export const movies: Movie[] = [
+  {
+    slug: "cong-tru-nhan-chia",
+    title: "Cộng Trừ Nhân Chia",
+    year: 2027,
+    description:
+      "Một nữ sinh chuyển đến một ngôi trường quốc tế danh tiếng. Cô liên tiếp vướng vào nhiều vụ việc đau lòng và chứng kiến nhiều hiện tượng kì bí. Trên đường tìm ra sự thật, cô phát hiện nhiều bí mật đen tối ẩn bên dưới lớp vỏ hào nhoáng của một ngôi trường danh giá. Phim tâm lý – giật gân học đường do Bee Entertainment và KAO Entertainment thực hiện, với sự tham gia của Anh Thư, Lâm Thanh Mỹ, Phương Trà My, Minh Hưng.",
+    posterUrl: "/poster/cong-tru-nhan-chia.jpg",
+    director: "Irving Ly",
+    genres: ["Hồi hộp", "Tâm lý"],
+    // Touch Cinema ghi 05/03/2027; CGV và nhà sản xuất chưa công bố ngày chính thức
+    releaseDate: "2027-03-05",
+    releaseTentative: true,
+    ticketUrl: "https://www.cgv.vn/default/cong-tru-nhan-chia.html",
+  },
   {
     slug: "cam",
     title: "Cám",

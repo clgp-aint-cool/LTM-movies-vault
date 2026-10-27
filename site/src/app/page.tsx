@@ -18,7 +18,7 @@ export default function Home() {
   const posts = getPosts().slice(0, 3);
   const withRelease = movies
     .filter((m) => m.releaseDate)
-    .map((m) => ({ slug: m.slug, title: m.title, posterUrl: m.posterUrl, releaseDate: m.releaseDate! }));
+    .map((m) => ({ slug: m.slug, title: m.title, posterUrl: m.posterUrl, releaseDate: m.releaseDate!, tentative: m.releaseTentative }));
   return (
     <div className="min-h-screen p-6 sm:p-10">
       <header className="max-w-6xl mx-auto flex items-center gap-4 sm:gap-6">

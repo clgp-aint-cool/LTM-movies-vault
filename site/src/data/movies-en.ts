@@ -3,6 +3,10 @@ import { movies, type Movie } from "./movies";
 // English copy for the /en pages. `title` = official international title (only when known).
 // Add a new movie here too after adding it to movies.ts; otherwise the Vietnamese text is shown.
 const EN: Record<string, { title?: string; description: string; genres?: string[] }> = {
+  "cong-tru-nhan-chia": {
+    description:
+      "A schoolgirl transfers to a prestigious international school, where she is drawn into a series of tragic incidents and strange phenomena — and uncovers the dark secrets behind the school's glossy facade. A psychological school thriller directed by Irving Ly, starring Anh Thư, Lâm Thanh Mỹ, Phương Trà My and Minh Hưng.",
+  },
   cam: {
     title: "The Sisters",
     description:
@@ -66,6 +70,7 @@ const GENRES_EN: Record<string, string> = {
   "Hành động": "Action",
   "Tình cảm": "Romance",
   "Học đường": "School",
+  "Hồi hộp": "Thriller",
 };
 
 export type MovieEn = Movie & { titleEn?: string; descriptionEn: string; genresEn?: string[] };

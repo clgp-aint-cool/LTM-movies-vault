@@ -6,6 +6,7 @@ import { counterpartPath, isEnglishPath } from "@/lib/i18n";
 
 const VI_LINKS = [
   ["/movies", "Phim"],
+  ["/sap-ra-mat", "Sắp chiếu"],
   ["/hanh-trinh", "Hành trình"],
   ["/gallery", "Hình ảnh"],
   ["/bai-viet", "Bài viết"],

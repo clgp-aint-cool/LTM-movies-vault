@@ -104,7 +104,7 @@ function MovieEntry({ movie }: { movie: (typeof movies)[number] }) {
       />
       <div>
         <p className="text-xs uppercase tracking-wide opacity-60">
-          🎞️ {movie.releaseDate ? `Khởi chiếu ${formatDate(movie.releaseDate)}` : `Phim ${movie.year}`}
+          🎞️ {movie.releaseDate ? `Khởi chiếu ${formatDate(movie.releaseDate)}${movie.releaseTentative ? " (dự kiến)" : ""}` : `Phim ${movie.year}`}
         </p>
         <h3 className="font-semibold text-lg group-hover:underline">{movie.title}</h3>
         <p className="text-sm opacity-80">
