@@ -50,8 +50,8 @@ export const movies: Movie[] = [
     posterUrl: "/poster/cong-tru-nhan-chia.jpg",
     director: "Irving Ly",
     genres: ["Hồi hộp", "Tâm lý"],
-    // Touch Cinema ghi 05/03/2027; CGV và nhà sản xuất chưa công bố ngày chính thức
-    releaseDate: "2027-03-05",
+    // Poster + trailer chính thức ghi "Dự kiến khởi chiếu tháng 01.2027"; tạm lấy giữa tháng cho tới khi có ngày chính thức
+    releaseDate: "2027-01-15",
     releaseTentative: true,
     ticketUrl: "https://www.cgv.vn/default/cong-tru-nhan-chia.html",
     trailerYoutubeId: "LHKY7u6stAU",

@@ -97,7 +97,7 @@ export default function UpcomingPage() {
             </div>
             {hero.releaseTentative && (
               <p className="mt-3 text-xs text-white/60">
-                * Ngày dự kiến theo thông tin rạp chiếu, nhà sản xuất chưa công bố chính thức — có thể thay đổi.
+                * Poster và trailer chính thức ghi dự kiến khởi chiếu tháng 01/2027; trang tạm đếm ngược đến giữa tháng — ngày chính xác sẽ cập nhật khi nhà sản xuất công bố.
               </p>
             )}
             <div className="mt-6 flex flex-wrap gap-2">
