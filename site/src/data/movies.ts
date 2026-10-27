@@ -4,7 +4,8 @@ export type Movie = {
   year: number;
   description: string;
   posterUrl: string; // Can be remote or in public/
-  videoUrl: string; // mp4/hls URL; can be remote for now
+  // ID video trailer chính thức trên YouTube (phần sau "watch?v=")
+  trailerYoutubeId?: string;
   durationMinutes?: number;
   director?: string;
   genres?: string[];
@@ -34,8 +35,7 @@ export const movies: Movie[] = [
     description:
       "Cám, hay còn được biết đến với tên cũ Con Cám, là một bộ phim điện ảnh Việt Nam thuộc thể loại kinh dị – cổ trang ra mắt năm 2024 do Trần Hữu Tấn làm đạo diễn kiêm biên kịch và Hoàng Quân làm nhà sản xuất, dựa trên những dị bản kinh dị của truyện cổ tích Tấm Cám.",
     posterUrl: "/poster/cam.jpg",
-    videoUrl:
-      "https://drive.google.com/file/d/1PUYa7fz_EDMNNgbRevTEpu7kMHPQj2zO/view?usp=sharing",
+    trailerYoutubeId: "_8qUFEmPQbc",
     durationMinutes: 140,
     director: "Trần Hữu Tấn",
     genres: ["Kinh dị", "Cổ trang"],
@@ -48,8 +48,7 @@ export const movies: Movie[] = [
     description:
       "Tôi thấy hoa vàng trên cỏ xanh là phim điện ảnh được chuyển thể từ tiểu thuyết cùng tên của nhà văn Nguyễn Nhật Ánh. Bộ phim do Victor Vũ đạo diễn, được hợp tác sản xuất bởi Galaxy Media & Entertainment, Saigon Concert, PS Việt Nam, Hãng phim Phương Nam & Truyền hình K+ với sự đầu tư của Cục Điện ảnh Việt Nam.",
     posterUrl: "/poster/toi-thay-hoa-vang-tren-co-xanh.jpg",
-    videoUrl:
-      "https://drive.google.com/file/d/1r4UzRUCHSLvbWa1jf0g3FTVRAx_PVmVc/view?usp=sharing",
+    trailerYoutubeId: "DSwRXkWCdJE",
     durationMinutes: 140,
     director: "Victor Vũ",
     genres: ["Tâm lý", "Gia đình"],
@@ -62,8 +61,7 @@ export const movies: Movie[] = [
     description:
       "Khế ước bán dâu: Lời nguyền đêm trăng hay gọi ngắn là Khế ước bán dâu là một bộ phim điện ảnh Việt Nam ra mắt năm 2025 thuộc thể loại kinh dị – cổ trang do Lê Văn Kiệt đạo diễn, đánh dấu sự trở lại của anh sau 3 năm kể từ Bóng đè và The Princess.",
     posterUrl: "/poster/khe-uoc-ban-dau.jpg",
-    videoUrl:
-      "https://drive.google.com/file/d/1vLd_HlZrZ06EENY_tdcgZQF6c8n8FXj0/view?usp=sharing",
+    trailerYoutubeId: "1Bi3KihM6L4",
     durationMinutes: 114,
     director: "Lê Văn Kiệt",
     genres: ["Kinh dị", "Cổ trang"],
@@ -75,8 +73,7 @@ export const movies: Movie[] = [
     description:
       "Đại Tiệc Trăng Máu 8 theo chân một vị đạo diễn hay bị coi thường (Vân Sơn đóng) trong dự án thử thách nhất đời ông: thực hiện một bộ phim dài 35 phút chỉ với một cú máy. Hàng loạt tình huống dở khóc dở cười xảy ra khi các diễn viên liên tục gây chuyện “khó đỡ”. Thế nhưng, việc hoàn thành tác phẩm là cơ hội cuối cùng để ông giành lại sự tôn trọng từ cô con gái đam mê nghệ thuật. Quy tụ dàn sao đình đám nhất điện ảnh Việt, Đại Tiệc Trăng Máu 8 ấn định lịch khai tiệc vào 24.04.2026, chiếu xuyên Đại lễ Giỗ Tổ Hùng Vương & 30.04.2026.",
     posterUrl: "/poster/Dai-tiec-trang-mau-8.jpg",
-    videoUrl:
-      "https://drive.google.com/file/d/10fiPcarXLu1sB3qRqv0oaX2gSKpNg65d/view?usp=sharing",
+    trailerYoutubeId: "vBtTAtY0X2g",
     durationMinutes: 114,
     genres: ["Hài"],
   },
@@ -87,8 +84,7 @@ export const movies: Movie[] = [
     description:
       "Lấy cảm hứng từ những ký ức tuổi thơ ngọt ngào, “Cục Vàng Của Ngoại” mang đến câu chuyện ấm áp về tình bà cháu trong một xóm nhỏ chan chứa nghĩa tình. Bà Hậu – người phụ nữ cả đời tần tảo, nay trở thành chỗ dựa duy nhất của cháu ngoại khi con gái bỏ đi. Dẫu cuộc sống còn nhiều nhọc nhằn, tình thương bà dành cho cháu vẫn luôn trọn vẹn. Với bà, cháu là “cục vàng” – niềm vui, niềm an ủi và cũng là lẽ sống của đời mình. Bộ phim nhẹ nhàng dẫn khán giả trở lại những khoảnh khắc quen thuộc nơi xóm nhỏ: nụ cười hồn nhiên của cháu, vòng tay chở che của bà và sự đùm bọc từ hàng xóm láng giềng. Tất cả cùng hòa thành một bức tranh đời thường ấm áp, gợi nhắc về tuổi thơ bình yên và tình người mộc mạc, chân thành.",
     posterUrl: "/poster/cuc-vang-cua-ngoai.jpg",
-    videoUrl:
-      "https://drive.google.com/file/d/1LD7cF6gIoa6fsifH7nwMhwrA7xPFecnK/view?usp=sharing",
+    trailerYoutubeId: "_cj77qa_wMc",
     durationMinutes: 101,
     genres: ["Gia đình", "Tâm lý"],
   },
@@ -99,8 +95,7 @@ export const movies: Movie[] = [
     description:
       "Bóng đè là bộ phim điện ảnh kinh dị Việt Nam ra mắt năm 2022 do Lê Văn Kiệt đạo diễn. Phim khai thác hiện tượng bóng đè trong dân gian, đưa khán giả vào những đêm ác mộng của một gia đình bị ám ảnh bởi thế lực vô hình.",
     posterUrl: "/poster/bong-de.jpg",
-    videoUrl:
-      "https://drive.google.com/file/d/1tlAqBuXrwACugfIZjt8ZoBRCH3zo31TS/view?usp=sharing/videos/bong-de.mp4",
+    trailerYoutubeId: "66Dpvz_KNwY",
     durationMinutes: 101,
     director: "Lê Văn Kiệt",
     genres: ["Kinh dị"],
@@ -113,8 +108,7 @@ export const movies: Movie[] = [
     description:
       "Đoạt hồn là một bộ phim kinh dị Việt Nam công chiếu vào năm 2014, do Trần Hàm đạo diễn. Đây là phim thứ hai của anh thực hiện tại Việt Nam, sau phim hài Âm mưu giày gót nhọn năm 2013",
     posterUrl: "/poster/doat-hon.jpg",
-    videoUrl:
-      "https://drive.google.com/file/d/1Gi_wx_jsK2wtHyC4dsJ-o0PVphh08pqH/view?usp=sharing",
+    trailerYoutubeId: "9MCDFs0epTA",
     durationMinutes: 99,
     director: "Hàm Trần",
     genres: ["Kinh dị"],
@@ -127,8 +121,7 @@ export const movies: Movie[] = [
     description:
       "Nghề siêu dễ là một bộ phim điện ảnh hài hành động của Việt Nam ra mắt năm 2022 do Võ Thanh Hòa đạo diễn. Phim được CJ HK Entertainment và Thu Trang Entertainment chịu trách nhiệm sản xuất và CJ E&M giữ vai trò phân phối. Phim là phiên bản làm lại của bộ phim điện ảnh Hàn Quốc Nghề siêu khó ra mắt năm 2019",
     posterUrl: "/poster/nghe-sieu-de.jpg",
-    videoUrl:
-      "https://drive.google.com/file/d/18AM_7MpI7B7vK3JSPKZPoDj3z1quh9V4/view?usp=sharing",
+    trailerYoutubeId: "odb5t4i3EKs",
     durationMinutes: 113,
     director: "Võ Thanh Hòa",
     genres: ["Hài", "Hành động"],
@@ -140,7 +133,7 @@ export const movies: Movie[] = [
     description:
       "Vợ ba hay Người vợ ba là một bộ phim cổ trang lịch sử tâm lý xã hội năm 2018 của đạo diễn Ash Mayfair và nhà sản xuất Nguyễn Thị Bích Ngọc. Bộ phim kể về hành trình của Mây – một cô gái 14 tuổi trở thành vợ ba của một gia đình địa chủ ở nông thôn miền Bắc vào khoảng thế kỉ 19.",
     posterUrl: "/poster/vo-ba.jpg",
-    videoUrl: "",
+    trailerYoutubeId: "FltKe7DNDNo",
     durationMinutes: 96,
     director: "Ash Mayfair",
     genres: ["Cổ trang", "Tâm lý"],
@@ -152,7 +145,7 @@ export const movies: Movie[] = [
     description:
       "Thất sơn tâm linh là một bộ phim điện ảnh kinh dị Việt Nam của đạo diễn Hàm Trần dựa trên vụ án có thật.",
     posterUrl: "/poster/that-son-tam-linh.jpg",
-    videoUrl: "",
+    trailerYoutubeId: "GlrCgPsO-sI",
     durationMinutes: 100,
     director: "Hàm Trần",
     genres: ["Kinh dị"],
@@ -164,7 +157,7 @@ export const movies: Movie[] = [
     description:
       "Vào một ngày đẹp trời, cuộc sống của bạn bỗng trở nên hỗn độn với sự xuất hiện của một cô bé lớp dưới, lẽo đẽo đi theo mình cả ngày, không những vậy còn… dọn luôn về nhà mình ở",
     posterUrl: "/poster/tinh-dau-ngay-tho.jpg",
-    videoUrl: "",
+    trailerYoutubeId: "rpgubuk69jk",
     durationMinutes: 100,
     genres: ["Tình cảm", "Học đường"],
   },
@@ -175,8 +168,7 @@ export const movies: Movie[] = [
     description:
       "Siêu sao Kang Jun Woo – “Hoàng tử Châu Á” – rơi vào tình cảnh “mắc kẹt” tại Việt Nam sau một loạt sự cố dở khóc dở cười, nơi anh gặp Thảo – một cô gái bán cà phê đầy đam mê, quyết tâm theo đuổi ước mơ của mình.",
     posterUrl: "/poster/tay-anh-giu-mot-vi-sao.jpg",
-    videoUrl:
-      "https://drive.google.com/file/d/1pZYpagpdU9xBlkdZeXQhPcEizirFKhnS/view?usp=share_link",
+    trailerYoutubeId: "ZsSYbAy2Ez8",
     durationMinutes: 100,
     genres: ["Tình cảm", "Hài"],
   },
