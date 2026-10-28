@@ -81,6 +81,7 @@ const jsonLd = {
       alternateName: ["Lam Thanh My", "Em bé ma của màn ảnh Việt"],
       birthDate: "2005",
       jobTitle: "Diễn viên",
+      alumniOf: { "@type": "CollegeOrUniversity", name: "Trường Đại học Văn Lang" },
       nationality: { "@type": "Country", name: "Việt Nam" },
       image: absoluteUrl(actress.avatarUrl),
       url: absoluteUrl("/about"),
